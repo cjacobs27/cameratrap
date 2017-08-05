@@ -19,16 +19,16 @@ fdf=pandas.DataFrame(columns=["Start","End"])
 face_cascade=cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 video=cv2.VideoCapture(0)
 
-# def takepic(fstatus):
-#     if fstatus == 1:
-#         file = r"C:\Users\Chelsey\Documents\Projects\cameratrap\cameratrap_faces\\"
-#         if os.path.exists(file):
-#             now = datetime.now().strftime("%I.%M.%S.%f")
-#             cv2.imwrite(file + "_captured_" + now + ".jpg", frame)
-#             print("Saving image.")
-#             time.sleep(1)
-#     elif fstatus == 0:
-#         pass
+def takepic(fstatus):
+    if fstatus == 1:
+        file = r"C:\Users\Chelsey\Documents\Projects\cameratrap\cameratrap_faces\\"
+        if os.path.exists(file):
+            now = datetime.now().strftime("%I.%M.%S.%f")
+            cv2.imwrite(file + "_captured_" + now + ".jpg", frame)
+            print("Saving image.")
+            time.sleep(1)
+    elif fstatus == 0:
+        pass
 
 while True:
     check, frame = video.read()
@@ -65,7 +65,7 @@ while True:
             continue
         fstatus=1
         frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (152, 3, 186), 2)
-        # takepic(fstatus)
+        takepic(fstatus)
 
     fstatus_list.append(fstatus)
     fstatus_list=fstatus_list[-2:]
