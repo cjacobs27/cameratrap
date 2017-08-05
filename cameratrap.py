@@ -57,7 +57,7 @@ while True:
 
         (x, y, w, h)=cv2.boundingRect(contour)
         mstatus=1
-        cv2.rectangle(frame, (x, y), (x+w, y+h), (0,255,0), 1)
+        cv2.rectangle(frame, (x, y), (x+w, y+h), (0,255,255), 1)
     mstatus_list.append(mstatus)
     mstatus_list=mstatus_list[-2:]
 
@@ -65,8 +65,8 @@ while True:
         if (w * h) < 10000:
             continue
         fstatus=1
-        frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (152, 3, 186), 2)
-        # takepic(fstatus)
+        frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (255,0,0), 2)
+        takepic(fstatus)
 
     fstatus_list.append(fstatus)
     fstatus_list=fstatus_list[-2:]
