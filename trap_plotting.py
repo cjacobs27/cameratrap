@@ -11,5 +11,5 @@ f.ygrid[0].ticker.desired_num_ticks=1
 q = f.quad(left=fdf["Start"],right=fdf["End"],bottom=0,top=1,color="purple")
 
 output_file("FaceGraph.html")
-show(f)
+# show(f)
 # m = figure(x_axis_type='datetime',height=100,width=500,responsive=True,title="Motion Detection Events")

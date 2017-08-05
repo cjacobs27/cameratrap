@@ -10,9 +10,9 @@ import cv2, time, pandas, os
 from datetime import datetime
 
 first_frame=None
-# mstatus_list=[None,None]
-# mtimes=[]
-# mdf=pandas.DataFrame(columns=["Start","End"])
+mstatus_list=[None,None]
+mtimes=[]
+mdf=pandas.DataFrame(columns=["Start","End"])
 fstatus_list=[None,None]
 ftimes=[]
 fdf=pandas.DataFrame(columns=["Start","End"])
@@ -32,7 +32,7 @@ def takepic(fstatus):
 
 while True:
     check, frame = video.read()
-    # mstatus=0
+    mstatus=0
     fstatus=0
     gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     gray=cv2.GaussianBlur(gray,(21,21),0)
@@ -54,33 +54,33 @@ while True:
     for contour in cnts:
         if cv2.contourArea(contour) < 10000:
             continue
-        # mstatus=1
 
         (x, y, w, h)=cv2.boundingRect(contour)
+        mstatus=1
         cv2.rectangle(frame, (x, y), (x+w, y+h), (0,255,0), 1)
-    # mstatus_list.append(mstatus)
+    mstatus_list.append(mstatus)
+    mstatus_list=mstatus_list[-2:]
 
     for x, y, w, h in faces:
         if (w * h) < 10000:
             continue
         fstatus=1
         frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (152, 3, 186), 2)
-        takepic(fstatus)
+        # takepic(fstatus)
 
     fstatus_list.append(fstatus)
     fstatus_list=fstatus_list[-2:]
 
-    # if mstatus_list[-1]==1 and mstatus_list[-2]==0:
-    #     mtimes.append(datetime.now())
-    # if mstatus_list[-1]==0 and mstatus_list[-2]==1:
-    #     mtimes.append(datetime.now())
+    if mstatus_list[-1]==1 and mstatus_list[-2]==0:
+        mtimes.append(datetime.now())
+    if mstatus_list[-1]==0 and mstatus_list[-2]==1:
+        mtimes.append(datetime.now())
 
     if fstatus_list[-1]==1 and fstatus_list[-2]==0:
         ftimes.append(datetime.now())
     if fstatus_list[-1]==0 and fstatus_list[-2]==1:
         ftimes.append(datetime.now())
 
-    print(fstatus_list)
     # cv2.imshow("Gray Frame",gray)
     # cv2.imshow("Delta Frame",delta_frame)
     # cv2.imshow("Threshold Frame",thresh_frame)
@@ -92,7 +92,6 @@ while True:
         ftimes.append(datetime.now())
         break
 print(fstatus_list)
-print(ftimes)
 
 for f in range(0,len(ftimes),2):
     if len(ftimes) % 2 == 0:
@@ -100,13 +99,19 @@ for f in range(0,len(ftimes),2):
     else:
         ftimes.append(datetime.now())
         fdf = fdf.append({"Start": ftimes[f], "End": ftimes[f + 1]}, ignore_index=True)
-print(fdf)
-# for m in range(0,len(mtimes),2):
-#     mdf=mdf.append({"Start":mtimes[m],"End":mtimes[m+1]},ignore_index=True)
+
+for m in range(0,len(mtimes),2):
+    if len(mtimes) % 2 == 0:
+        mdf=mdf.append({"Start":mtimes[m],"End":mtimes[m+1]}, ignore_index=True)
+    else:
+        mtimes.append(datetime.now())
+        mdf = mdf.append({"Start": mtimes[m], "End": mtimes[m + 1]}, ignore_index=True)
+
+print(mdf)
 
 
 fdf.to_csv("FaceTimes.csv")
-# mdf.to_csv("MotionTimes.csv")
+mdf.to_csv("MotionTimes.csv")
 
 video.release()
 cv2.destroyAllWindows
