@@ -3,7 +3,6 @@ This camera trap detects both motion (green rectangle)
 and faces (purple rectangle)
 and creates a log of both detected motion and faces in a CSV file.
 It also saves the frame every 10 seconds while a face is detected.
-v2 will be released on github - can't release this due to hardcoded personal info >.>
 
 '''
 
