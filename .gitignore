@@ -1,4 +1,9 @@
 Face_Times.csv
 Motion_Times.csv
 
-\.idea/
+FaceGraph\.html
+FaceTimes.csv
+.idea/
+cameratrap_faces/*
+!cameratrap_faces/.gitkeep
+__pycache__
