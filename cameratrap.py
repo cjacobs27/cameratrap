@@ -2,8 +2,8 @@
 This camera trap detects both motion (green rectangle)
 and faces (purple rectangle)
 and creates a log of both detected motion and faces in a CSV file.
-It also saves the frame every 10 seconds while a face is detected.
-v2 will be released on github - can't release this due to hardcoded personal info >.>
+It also saves the frame to .jpg every 10 seconds while a face is detected.
+You could use this to see who comes up to your front door while you're out, for example.
 
 '''
 
@@ -90,6 +90,7 @@ while True:
     if fstatus_list[-1]==0 and fstatus_list[-2]==1:
         ftimes.append(datetime.now())
 
+#uncomment these to see vaguely sci-fi filters.
     # cv2.imshow("Gray Frame",gray)
     # cv2.imshow("Delta Frame",delta_frame)
     # cv2.imshow("Threshold Frame",thresh_frame)
