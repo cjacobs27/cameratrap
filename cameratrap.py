@@ -10,26 +10,24 @@ You could use this to see who comes up to your front door while you're out, for 
 import cv2, time, pandas, os
 from datetime import datetime
 
-
-
 first_frame=None
 mstatus_list=[None,None]
 mtimes=[]
+mdf=pandas.DataFrame(columns=["Start","End"])
 fstatus_list=[None,None]
 ftimes=[]
-mdf=pandas.DataFrame(columns=["Start","End"])
 fdf=pandas.DataFrame(columns=["Start","End"])
 face_cascade=cv2.CascadeClassifier("haarcascade_frontalface_default.xml")
 video=cv2.VideoCapture(0)
 
 def takepic(fstatus):
     if fstatus == 1:
-        file = r"C:\Users\Chelsey\Documents\Projects\chelseys-first-git\UDEMY\facevid\video face recognition\Camera Trap v1 Faces\\"
+        file = r"C:\Users\Chelsey\Documents\Projects\cameratrap\cameratrap_faces\\"
         if os.path.exists(file):
             now = datetime.now().strftime("%I.%M.%S.%f")
-            cv2.imwrite(file + "captured_" + now + ".jpg", frame)
+            cv2.imwrite(file + "_captured_" + now + ".jpg", frame)
             print("Saving image.")
-            time.sleep(10)
+            time.sleep(1)
     elif fstatus == 0:
         pass
 
@@ -58,27 +56,21 @@ while True:
         if cv2.contourArea(contour) < 10000:
             continue
 
-        mstatus=1
-
         (x, y, w, h)=cv2.boundingRect(contour)
-        cv2.rectangle(frame, (x, y), (x+w, y+h), (0,255,0), 3)
-
-    key=cv2.waitKey(1)
+        mstatus=1
+        cv2.rectangle(frame, (x, y), (x+w, y+h), (0,255,255), 1)
+    mstatus_list.append(mstatus)
+    mstatus_list=mstatus_list[-2:]
 
     for x, y, w, h in faces:
         if (w * h) < 10000:
             continue
         fstatus=1
-        frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (152, 3, 186), 2)
+        frame = cv2.rectangle(frame, (x, y), (x + w, y + h), (255,0,0), 2)
         takepic(fstatus)
 
-
-    mstatus_list.append(mstatus)
     fstatus_list.append(fstatus)
-
-    mstatus_list=mstatus_list[-2:]
-    fstatus_list = fstatus_list[-2:]
-
+    fstatus_list=fstatus_list[-2:]
 
     if mstatus_list[-1]==1 and mstatus_list[-2]==0:
         mtimes.append(datetime.now())
@@ -96,25 +88,32 @@ while True:
     # cv2.imshow("Threshold Frame",thresh_frame)
     cv2.imshow("Color Frame",frame)
 
-
+    key=cv2.waitKey(1)
 
     if key==ord('q'):
-        if fstatus==1:
-            ftimes.append(datetime.now())
-        if mstatus==1:
-            mtimes.append(datetime.now())
+        ftimes.append(datetime.now())
         break
+print(fstatus_list)
 
 for f in range(0,len(ftimes),2):
-    fdf=fdf.append({"Start":ftimes[0],"End":ftimes[1]},ignore_index=True)
-
+    if len(ftimes) % 2 == 0:
+        fdf=fdf.append({"Start":ftimes[f],"End":ftimes[f+1]}, ignore_index=True)
+    else:
+        ftimes.append(datetime.now())
+        fdf = fdf.append({"Start": ftimes[f], "End": ftimes[f + 1]}, ignore_index=True)
 
 for m in range(0,len(mtimes),2):
-    mdf=mdf.append({"Start":mtimes[m],"End":mtimes[m+1]},ignore_index=True)
+    if len(mtimes) % 2 == 0:
+        mdf=mdf.append({"Start":mtimes[m],"End":mtimes[m+1]}, ignore_index=True)
+    else:
+        mtimes.append(datetime.now())
+        mdf = mdf.append({"Start": mtimes[m], "End": mtimes[m + 1]}, ignore_index=True)
+
+print(mdf)
 
 
-fdf.to_csv("Face_Times.csv")
-mdf.to_csv("Motion_Times.csv")
+fdf.to_csv("FaceTimes.csv")
+mdf.to_csv("MotionTimes.csv")
 
 video.release()
 cv2.destroyAllWindows
