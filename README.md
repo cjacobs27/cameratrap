@@ -1,4 +1,4 @@
-##**_Camera Trap with Motion & Face Detection Times Graph_**
+**_Camera Trap with Motion & Face Detection Times Graph_**
 
 **To run this program with the graph feature, please run trap_plotting.py.**
 
@@ -22,9 +22,10 @@ The trap_plotting.py script will:
 * A Bokeh graph of the .csv information will open in your browser.
 * You may be prompted to select a program to open the graph html file - please select your normal web browser.
 
-###_Troubleshooting_
+_Troubleshooting_
 
-#####I got a cv2 error :(
+*I got a cv2 error :(*
+
 This needs a webcam to work. The cameratrap.py script looks in the default local port for a webcam, so if you get the following error:
 
 ``cv2.error: C:\projects\opencv-python\opencv\modules\imgproc\src\color.cpp:9748: error: (-215) scn == 3 || scn == 4 in function cv::cvtColor``
@@ -41,7 +42,7 @@ video=cv2.VideoCapture(0)
 video=cv2.VideoCapture(500)
 ``
 
-#####I want to change how often it saves pictures
+*I want to change how often it saves pictures*
 
 To adjust the frequency of .jpg saving, go to this function in cameratrap.py:
 
