@@ -1,6 +1,11 @@
 **_Camera Trap with Motion & Face Detection Times Graph_**
 
-**To run this program with the graph feature, please run trap_plotting.py.**
+**To run this program with the graph feature, please run trap_plotting.py:**
+
+Download the .zip file of this repo & unzip
+Open the command line or Powershell in the folder
+
+''python ''
 
 **If you just want to run the camera trap, run cameratrap.py instead.**
 
