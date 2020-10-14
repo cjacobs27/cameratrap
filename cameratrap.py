@@ -22,7 +22,8 @@ video=cv2.VideoCapture(0)
 
 def takepic(fstatus):
     if fstatus == 1:
-        file = r"C:\Users\Chelsey\Documents\Projects\cameratrap\cameratrap_faces\\"
+        # CHANGE THIS FILEPATH TO WHEREVER YOU WANT TO SAVE THE FILES, this is just an example filepath:
+        file = r"C:\Users\[YOU]\Documents\Projects\cameratrap\cameratrap_faces\\"
         if os.path.exists(file):
             now = datetime.now().strftime("%I.%M.%S.%f")
             cv2.imwrite(file + "_captured_" + now + ".jpg", frame)
