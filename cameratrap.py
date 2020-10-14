@@ -23,7 +23,7 @@ video=cv2.VideoCapture(0)
 def takepic(fstatus):
     if fstatus == 1:
         # CHANGE THIS FILEPATH TO WHEREVER YOU WANT TO SAVE THE FILES, this is just an example filepath:
-        file = r"C:\Users\[YOU]\Documents\Projects\cameratrap\cameratrap_faces\\"
+        file = r"/Users/chelseyjacobs/Desktop/camerapics/"
         if os.path.exists(file):
             now = datetime.now().strftime("%I.%M.%S.%f")
             cv2.imwrite(file + "_captured_" + now + ".jpg", frame)
@@ -47,7 +47,7 @@ while True:
     thresh_frame=cv2.threshold(delta_frame, 30, 255, cv2.THRESH_BINARY)[1]
     thresh_frame=cv2.dilate(thresh_frame, None, iterations=3)
 
-    (_,cnts,_)=cv2.findContours(thresh_frame.copy(),cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    (cnts,_)=cv2.findContours(thresh_frame.copy(),cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
 
     faces = face_cascade.detectMultiScale(gray,
     scaleFactor=1.5,
