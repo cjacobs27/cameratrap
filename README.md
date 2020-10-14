@@ -54,7 +54,7 @@ To adjust the frequency of .jpg saving, go to this function in cameratrap.py:
 ```
 def takepic(fstatus):
     if fstatus == 1:
-        file = r"C:\Users\Chelsey\Documents\Projects\cameratrap\cameratrap_faces\\"
+        file = r"C:\Users\[YOU]\Documents\Projects\cameratrap\cameratrap_faces\\"
         if os.path.exists(file):
             now = datetime.now().strftime("%I.%M.%S.%f")
             cv2.imwrite(file + "_captured_" + now + ".jpg", frame)
@@ -69,8 +69,9 @@ And change the number in this line:
 
 The number represents the number of seconds between images you want to leave. The highest I recommend is 10 seconds, to 
 prevent lag (in the case of additional faces appearing between image saves for example).
-#####I want to change where it saves pictures
+
+*I want to change where it saves pictures*
 
 No worries, just change the filepath in this line, in the same function as above:
 
-`        file = r"C:\Users\Chelsey\Documents\Projects\cameratrap\cameratrap_faces\\"`
+`        file = r"C:\Users\[YOU]\Documents\Projects\cameratrap\cameratrap_faces\\"`
