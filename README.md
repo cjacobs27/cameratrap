@@ -2,8 +2,8 @@
 
 **To run this program with the graph feature, please run trap_plotting.py:**
 
-Download the .zip file of this repo & unzip
-Open the command line or Powershell in the folder
+* Download the .zip file of this repo & unzip.
+* Open the command line or Powershell in the folder.
 
 ''python ''
 
